@@ -1,0 +1,28 @@
+ARG PYTHON_BASE=3.12-slim
+FROM docker.io/python:${PYTHON_BASE} AS builder
+
+RUN pip install -U pdm
+ENV PDM_CHECK_UPDATE=false
+
+COPY pyproject.toml pdm.lock README.md /project/
+COPY src/ /project/src/
+
+WORKDIR /project
+RUN pdm install --check --prod --no-editable
+
+FROM docker.io/alpine:3 AS stockfish-dl
+
+RUN apk add --no-cache curl && \
+    curl -L -o /stockfish.tar https://github.com/official-stockfish/Stockfish/releases/latest/download/stockfish-ubuntu-x86-64.tar && \
+    tar --extract --file /stockfish.tar --directory /
+
+FROM docker.io/python:${PYTHON_BASE} 
+
+COPY --from=builder /project/.venv/ /project/.venv/
+COPY --from=stockfish-dl /stockfish/stockfish-ubuntu-x86-64 /usr/local/bin/stockfish
+ENV PATH=/project/.venv/bin:/stockfish/bin:$PATH
+
+COPY src/ /project/src/
+WORKDIR /project/
+ENTRYPOINT ["fastapi"]
+CMD ["run", "src/api", "--port", "8000", "--host", "0.0.0.0"]

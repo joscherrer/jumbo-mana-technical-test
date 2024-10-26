@@ -1,0 +1,13 @@
+services:
+  webapp:
+    build:
+      context: ./webapp
+      dockerfile: Containerfile
+    ports:
+      - "8080:80"
+  api:
+    build:
+      context: ./api
+      dockerfile: Containerfile
+    ports:
+      - "8000:8000"
