@@ -18,8 +18,8 @@ chess positions.
 
 ## Thought process
 
-First, I looked online to see if someone had already done something similar.
-After a quick search, I found this project : [Codepen](https://codepen.io/mherreshoff/full/MWJGwZN) [mherreshoff/fair-chess](https://github.com/mherreshoff/fair-chess/tree/main)
+First, I looked online to see if someone had already done something similar.  
+After a quick search, I found this project : [Codepen](https://codepen.io/mherreshoff/full/MWJGwZN) [mherreshoff/fair-chess](https://github.com/mherreshoff/fair-chess/tree/main)  
 This gave me a starting point to understand how I could use stockfish to evaluate a board position.
 
 Then I read a good portion of the [stockfish documentation](https://official-stockfish.github.io/docs/stockfish-wiki/Home.html).
