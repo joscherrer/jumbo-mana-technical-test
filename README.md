@@ -39,6 +39,8 @@ Some key aspects I learned about stockfish and chess in this documentation:
   - Ask stockfish for one `pv` each turn, hoping that the advantage will cancel out between both players.
   - Ask stockfish for multiple `pv`s, sort them by their distance from 0, and keep the closest one. This is the approach I chose.
 
+After this research, I drafted a basic architecture for the project, and started coding.
+
 ### Basic architecture
 
 ![basic sequence diagram](./assets/basic-seq-diagram.png)
