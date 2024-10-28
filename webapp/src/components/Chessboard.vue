@@ -10,15 +10,6 @@ import { Chess } from 'chess.js';
 
 import Game from '../game.ts';
 
-import axios, { isCancel, AxiosError } from 'axios';
-const client = axios.create({
-    baseURL: 'http://localhost:8000',
-    timeout: 1000,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
-
 const version = defineModel('version');
 const game = defineModel('game');
 
