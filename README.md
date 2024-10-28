@@ -96,8 +96,8 @@ The response is a JSON object with the following fields:
 - Decouple the API from stockfish, use a message queue to communicate with a fleet of stockfish instances.
   Thus we could run stockfish on machines with a higher CPU core count, and deploy less (and smaller) API instances.
 - Instead of keeping the worst move each turn, keep the best move hoping that the advantage will cancel out.
-- By default the mid-game is considered to be between 16 and 26 plies. Realistically, we should be smarter about this.
-  Some say this about the frontier between the opening and the mid-game:
+- By default this project considers the mid-game to be between 16 and 26 plies. Realistically, it depends on the opening played.
+  Some say the following about the frontier between the opening and the mid-game:
 > The opening is the stage of the game in which players develop their pieces, get their king to safety,
 > and attempt to control the center. It switches to the middle game when players begin to attack each other, and defend. 
 
