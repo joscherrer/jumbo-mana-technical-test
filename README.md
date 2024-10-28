@@ -93,6 +93,9 @@ The response is a JSON object with the following fields:
   without having to wait for stockfish to compute the best move.
 - Use an openings database to generate the first few moves of the game, reducing considerably the number of moves to compute.
 - Use the `go` command instead of `eval` to get better position evaluation.
+- When requesting a fair board, the HTTP request hangs until the API has found a candidate.
+  If the API takes too long, the webapp will timeout. Instead, the API hould return instantly with
+  a transaction ID, and the webapp should poll the API until the fair board is ready.
 - Enable user input on the chessboard, and use stockfish to play against the user.
 - Validate the moves played by the user with [chess.js](https://github.com/jhlywa/chess.js)
 - Decouple the API from stockfish, use a message queue to communicate with a fleet of stockfish instances.
