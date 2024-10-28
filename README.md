@@ -55,7 +55,7 @@ This process repeats for a minimum of `min_ply` moves (decided by the user), and
 
 ### Web UI
 
-![](home.jpg)
+![](assets/home.jpg)
 
 The web UI allows to tweak some parameters:
 - The max depth of the position evaluation
