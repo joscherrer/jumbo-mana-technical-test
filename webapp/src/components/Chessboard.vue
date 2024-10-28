@@ -19,5 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div id="board" class="m-2"></div>
+    <div class="flex h-screen">
+        <div id="board" class="w-3/6 m-auto"></div>
+    </div>
 </template>
