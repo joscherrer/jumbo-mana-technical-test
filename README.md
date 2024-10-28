@@ -22,7 +22,7 @@ First, I looked online to see if someone had already done something similar.
 After a quick search, I found this project : [Codepen](https://codepen.io/mherreshoff/full/MWJGwZN) [mherreshoff/fair-chess](https://github.com/mherreshoff/fair-chess/tree/main)  
 This gave me a starting point to understand how I could use stockfish to evaluate a board position.
 
-Then I read a good portion of the [stockfish documentation](https://official-stockfish.github.io/docs/stockfish-wiki/Home.html).
+Then I read a good portion of the [stockfish documentation](https://official-stockfish.github.io/docs/stockfish-wiki/Home.html).  
 Some key aspects I learned about stockfish and chess in this documentation:
 - There is a standard notation to represent a chess board, called [FEN](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation).
 - A way to evaluate a player's advantage in a position is to use the centipawn (`cp`) unit. 100 cp is equivalent to 1 pawn lost.
