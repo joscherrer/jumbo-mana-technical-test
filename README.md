@@ -18,23 +18,34 @@ chess positions.
 
 ## Thought process
 
-- Search if a solution to a similar problem exists [](https://codepen.io/mherreshoff/full/MWJGwZN) [](https://github.com/mherreshoff/fair-chess/tree/main)
-- Understand stockfish [](https://official-stockfish.github.io/docs/stockfish-wiki/Home.html) 
+Search if a solution to a similar problem exists [](https://codepen.io/mherreshoff/full/MWJGwZN) [](https://github.com/mherreshoff/fair-chess/tree/main)
+
+Understand stockfish [](https://official-stockfish.github.io/docs/stockfish-wiki/Home.html) 
   - Communicate with the engine with the UCI protocol.
   - Can use the `eval` command to get the current position's static evaluation.
+  - stockfish supports multithreading, meaning we don't have to handle concurrency ourselves unless we want to spawn multiple stockfish processes.
 
-- basic architecture
+### Basic architecture
+
 ![basic sequence diagram](./assets/basic-seq-diagram.png)
 The user requests a new game. The webapp queries the API for a fair starting position.
+
 Upon receiving the requests, the API asks stockfish to propose muliple moves with the `eval` command, 
 selects the one giving the smallest advantage to the current player, and applies it to the board.
+
 Starting from this new position, the API queries stockfish for new moves, keeping again the move giving the smallest advantage.
 This process repeats for a minimum of `min_ply` moves (decided by the user), and until a position giving an advantage under 5 cp is found or `max_ply` has been reached.
 
-- improvements
-  - Generate fair boards ahead of time, and store them in a database. This way, the API can return a fair board instantly, without having to wait for stockfish to compute the best move.
-  - Use an openings database to generate the first few moves of the game, reducing considerably the number of moves to compute.
-  - Use the `go` command instead of `eval` to get better position evaluation.
+### Improvements
+
+- Generate fair boards ahead of time, and store them in a database. This way, the API can return a fair board instantly,
+  without having to wait for stockfish to compute the best move.
+- Use an openings database to generate the first few moves of the game, reducing considerably the number of moves to compute.
+- Use the `go` command instead of `eval` to get better position evaluation.
+- Enable user input on the chessboard, and use stockfish to play against the user.
+- Validate the moves played by the user with [chess.js](https://github.com/jhlywa/chess.js)
+- Decouple the API from stockfish, use a message queue to communicate with a fleet of stockfish instances.
+  Thus we could run stockfish on machines with a higher CPU core count, and deploy less (and smaller) API instances.
 
 ## Getting started
 
