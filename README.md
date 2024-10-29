@@ -171,5 +171,5 @@ To run the project:
 docker-compose up -d
 ```
 
-The web application should be available at [http://localhost:8000](http://localhost:8000).
+The web application should be available at [http://localhost:8000](http://localhost:8000).  
 The API docs should be available at [http://localhost:8080/docs](http://localhost:8080/docs).
