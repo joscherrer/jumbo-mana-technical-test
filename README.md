@@ -159,8 +159,8 @@ docker-compose build
 Or build the images separately :
 
 ```bash
-docker build -t webapp ./webapp/
-docker build -t api ./api/
+docker build -t webapp -f ./webapp/Containerfile ./webapp/
+docker build -t api -f ./webapp/Containerfile ./api/
 ```
 
 ### Running
