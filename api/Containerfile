@@ -10,17 +10,22 @@ COPY src/ /project/src/
 WORKDIR /project
 RUN pdm install --check --prod --no-editable
 
-FROM docker.io/alpine:3 AS stockfish-dl
+FROM docker.io/python:${PYTHON_BASE} AS stockfish-builder
 
-RUN apk add --no-cache curl && \
-    curl -L -o /stockfish.tar https://github.com/official-stockfish/Stockfish/releases/latest/download/stockfish-ubuntu-x86-64.tar && \
-    tar --extract --file /stockfish.tar --directory /
+RUN apt-get update && apt-get install -y curl gcc make git g++ && \
+    git clone https://github.com/official-stockfish/Stockfish.git /stockfish && \
+    cd /stockfish/src && \
+    make -j profile-build
+
+# RUN apk add --no-cache curl && \
+#     curl -L -o /stockfish.tar https://github.com/official-stockfish/Stockfish/releases/latest/download/stockfish-ubuntu-x86-64.tar && \
+#     tar --extract --file /stockfish.tar --directory /
 
 FROM docker.io/python:${PYTHON_BASE} 
 
 COPY --from=builder /project/.venv/ /project/.venv/
-COPY --from=stockfish-dl /stockfish/stockfish-ubuntu-x86-64 /usr/local/bin/stockfish
-ENV PATH=/project/.venv/bin:/stockfish/bin:$PATH
+COPY --from=stockfish-builder /stockfish/src/stockfish /usr/local/bin/stockfish
+ENV PATH=/project/.venv/bin:/usr/local/bin:$PATH
 
 COPY src/ /project/src/
 WORKDIR /project/
